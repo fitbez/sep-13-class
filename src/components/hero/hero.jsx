@@ -1,15 +1,16 @@
 import cart from "./cart.png";
 import Button from "../button/button";
+// import { useNavigate } from "react-router-dom";
 
-function Hero() {
+function Hero(props) {
   const isLoggedIn = true;
-  //   const fName = "John";
-  //   const lName = " Doe";
+  // const navigate = useNavigate();
 
-  const person = {
-    fName: "John",
-    lName: "Doe",
-  };
+  // const handleLearnMore = () => {
+  //   console.log("clicked");
+  //   navigate("/about");
+  // };
+
   return (
     // JSX
     // React Fragment
@@ -27,14 +28,7 @@ function Hero() {
             curabitur vitae nunc sed velit dignissim sodales ut. Consequat
             interdum varius sit amet mattis. Imperdiet proin fermentum leo vel
             orci porta non. Ut aliquam purus sit amet luctus venenatis lectus
-            magna fringilla. Eget sit amet tellus cras adipiscing enim. Auctor
-            eu augue ut lectus arcu bibendum at varius vel. Lectus urna duis
-            convallis convallis tellus id interdum velit. Risus nec feugiat in
-            fermentum posuere. Eget mi proin sed libero enim sed faucibus. Et
-            magnis dis parturient montes nascetur. Morbi tincidunt ornare massa
-            eget egestas purus viverra. Ut venenatis tellus in metus vulputate.
-            Aenean sed adipiscing diam donec adipiscing tristique risus nec.
-            Condimentum vitae sapien pellentesque habitant morbi.
+            magna fringilla.
           </p>
         </div>
         <img src={cart} alt="this is a cart" style={styledImage} />
@@ -48,6 +42,7 @@ function Hero() {
             backgroundColor="#11ccf4"
             border="none"
             color="#fff"
+            onClick={props.onClick}
           />
           <Button
             text="Learn More"
@@ -55,6 +50,7 @@ function Hero() {
             border="2px solid #000"
             color="black"
           />
+          {/* <button onClick={() => console.log("clicked")}>Learn More</button> */}
         </>
       ) : null}
 

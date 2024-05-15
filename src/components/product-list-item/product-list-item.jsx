@@ -1,7 +1,10 @@
-import { products } from "../../data";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ProductContext } from "../../context";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const StyledImage = styled.img`
   width: 176px;
@@ -14,6 +17,7 @@ const StyledCard = styled.div`
   background-color: #fff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem;
+  cursor: pointer;
 `;
 
 const StyledContent = styled.div`
@@ -21,6 +25,8 @@ const StyledContent = styled.div`
 `;
 
 const StyledProductName = styled.p`
+  display: flex;
+  justify-content: space-between;
   padding: 0;
   margin: 0;
   font-size: 14px;
@@ -42,20 +48,44 @@ const StyledCartAndPrice = styled.div`
 `;
 
 export default function ProductListItem() {
+  const navigate = useNavigate();
+  const { products, setProducts } = useContext(ProductContext);
+
+  const handleDelete = (event, id) => {
+    event.stopPropagation();
+    try {
+      axios.delete(`http://localhost:5000/api/product/product/${id}`);
+      const updatedProducts = products.filter((item) => item.id !== id);
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
   return (
     <>
       {products.map((item, index) => {
         return (
-          <StyledCard key={index}>
+          <StyledCard
+            key={index}
+            onClick={(event) => {
+              navigate(`/details/?product=${item.id}`);
+            }}
+          >
             <StyledImage src={item.image} alt="" />
             <StyledContent>
               <StyledProductName>
-                <strong>{item.name}</strong>
+                <strong>{item.product_name}</strong>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  color="#f25c54"
+                  onClick={(event) => handleDelete(event, item.id)}
+                />
               </StyledProductName>
-              <StyledDescription>{item.description}</StyledDescription>
+              <StyledDescription>{item.sumDescription}</StyledDescription>
               <StyledCartAndPrice>
                 <FontAwesomeIcon icon={faCartShopping} />
-                <StyledPrice>${item.price}</StyledPrice>
+                <StyledPrice>Price: ${item.price}</StyledPrice>
               </StyledCartAndPrice>
             </StyledContent>
           </StyledCard>
