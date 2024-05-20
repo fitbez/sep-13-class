@@ -89,7 +89,7 @@ function AddProduct(props) {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/product/product",
+        "https://sept-product-backend.onrender.com/api/product/product",
         productData,
         { headers: { "Content-Type": "application/json" } }
       );

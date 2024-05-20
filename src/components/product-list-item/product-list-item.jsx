@@ -54,7 +54,9 @@ export default function ProductListItem() {
   const handleDelete = (event, id) => {
     event.stopPropagation();
     try {
-      axios.delete(`http://localhost:5000/api/product/product/${id}`);
+      axios.delete(
+        `https://sept-product-backend.onrender.com/api/product/product/${id}`
+      );
       const updatedProducts = products.filter((item) => item.id !== id);
       setProducts(updatedProducts);
     } catch (error) {

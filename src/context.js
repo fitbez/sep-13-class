@@ -15,7 +15,7 @@ const ProductProvider = (props) => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/product/products"
+        "https://sept-product-backend.onrender.com/api/product/products"
       );
       if (response.status === 200) {
         setProducts(response.data);
